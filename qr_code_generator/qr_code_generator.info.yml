@@ -1,0 +1,6 @@
+name: QR Code Generator
+description: Generates QR Code for Products.
+core: 8.x
+type: module
+package: other
+core_version_requirement: ^8 || ^9

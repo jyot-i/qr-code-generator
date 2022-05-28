@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - QR_code_generator
+    - node
+  theme:
+    - bartik
+id: qrcodeblock
+theme: bartik
+region: sidebar_second
+weight: 0
+provider: null
+plugin: qr_code_placement_block
+settings:
+  id: qr_code_block
+  label: 'QR block'
+  provider: QR_code_generator
+  label_display: visible
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      product: product
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

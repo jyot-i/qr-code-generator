@@ -1,0 +1,31 @@
+<?php
+
+
+use \Drupal\file\Entity\File;
+
+/**
+ * Implements hook_install().
+ */
+function qr_code_generator_install() {
+    $base_url = \Drupal::request()->getSchemeAndHttpHost();
+    $module_get_handler = \Drupal::service('module_handler');
+    $module_get_path = $module_get_handler->getModule('qr_code_generator')->getPath();
+    $data = file_get_contents($base_url.'/'.$module_get_path.'/assests/images/unicornpatch.jpg');
+    $file = file_save_data($data, "public://unicornpatch.jpg");
+
+    //Creating a node.
+    $node = \Drupal::entityTypeManager()->getStorage('node')->create(
+      [
+      'type'       => 'product',
+      'body'       => 'Size is approx. 3-3/8" x 4" (8.5cm x 10.16cm). High quality, detailed embroidery applique. Can be sewn or ironed on. Great for hats, bags, clothing and more!. Or you could also just stick it to your forehead!',
+      'title'      => 'Unicorn Iron on patch',
+      'field_app_purchase_link'=> 'https://github.com/Dineshkushwaha/sph-test',
+      'field_app_image'=> [
+       'target_id' => $file->id(),
+       'alt' => 'product',
+    ],
+  ]);
+  $node->set('path', '/product/unicorn-iron-on-patch');
+  $node->save();
+
+}
